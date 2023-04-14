@@ -49,16 +49,6 @@ const UserSchema = new mongoose.Schema({
       },
     },
   ],
-  meals: [
-    {
-      food: {
-        type: String,
-      },
-      calories: {
-        type: Number,
-      },
-    },
-  ],
   userDetails: {
     weight: {
       type: Number,

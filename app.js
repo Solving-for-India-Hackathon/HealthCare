@@ -14,7 +14,7 @@ const connectDB = require("./config/db");
 require("./config/passport")(passport);
 const User = require("./models/User");
 
-dotenv.config({ path: "./config/config.env" });
+dotenv.config();
 
 connectDB();
 
@@ -30,8 +30,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl:
-        "mongodb+srv://gunjan:19092002@healthapp.tkmqe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+      mongoUrl: process.env.DB_URI,
     }),
   })
 );
