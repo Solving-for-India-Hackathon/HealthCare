@@ -13,6 +13,7 @@ const MongoStore = require("connect-mongo");
 const connectDB = require("./config/db");
 require("./config/passport")(passport);
 const User = require("./models/User");
+const Appointment = require("./models/Appointment");
 
 dotenv.config();
 
@@ -51,8 +52,9 @@ const PORT = process.env.PORT || 3000;
 
 var Date, Description, Start_time, End_time;
 
-app.get("/appointment", function (request, response) {
-  var foundUser = request.user;
+app.get("/appointment", async (request, response) => {
+  const foundUser = request.user;
+  console.log(foundUser);
   response.render("appointment", { appointments: foundUser.appointments });
 });
 
@@ -70,12 +72,14 @@ app.post("/appointment", async (req, res) => {
 
     if (user) {
       var d = {
-        Date: Date,
-        Description: Description,
-        Start_time: Start_time,
-        End_time: End_time,
+        date: Date,
+        description: Description,
+        start_time: Start_time,
+        end_time: End_time,
       };
-      user.appointments.push(d);
+      var appoint = await Appointment.create({...req.body , user: user._id});
+      user.appointments.push(appoint._id);
+      
 
       await user.save();
       res.status(200).redirect("/appointment");
@@ -133,7 +137,7 @@ app.post("/profile", async (request, response) => {
         mail,
         mobile,
       };
-      user.userDetails = d;
+      user.userDetails.push(d);
       await user.save();
       // res.status(200).redirect("/dashboard");
       response.redirect("/profile");
@@ -154,7 +158,6 @@ app.get("/profile", function (request, response) {
 // end of profile
 
 // code of dashboard
-
 app.post("/dashboard", async (req, res) => {
   var medname, time, freq;
   medname = req.body.Medicine_name;
@@ -228,6 +231,12 @@ app.get("/calorie_tracker", function (req, res) {
 app.get("/disease", function (req, res) {
   res.render("disease.ejs");
 });
+
+app.get("/admin" , async (req , res) => {
+  const appointments = await Appointment.find();
+  console.log(appointments);
+  res.render("admin.ejs" , { appointments: appointments });
+})
 // end for disese
 
 app.listen(PORT, console.log(`Server running on ${PORT}`));

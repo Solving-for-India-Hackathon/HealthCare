@@ -31,14 +31,7 @@
           <span class="title">Dashboard</span>
         </a>
       </li>
-
-      <!-- <li class="list">
-        <a href="#">
-          <span class="icon"><i class="fas fa-hospital"></i></span>
-          <span class="title">Hospitals near me</span>
-        </a>
-      </li> -->
-
+      
       <li class="list">
         <a href="/appointment">
           <span class="icon"><i class="fas fa-calendar-check"></i></span>
@@ -148,7 +141,7 @@
             <h3 class="heading">Appointments</h3>
           </div>
         </div>
-        <table class="table table-bordered table-hover table-striped" id="appointment_list">
+        <table class="table table-bordered table-hover table-striped" style = "border:none;" id="appointment_list">
           <thead>
             <tr>
               <th scope="col" class="text-center align-middle" id="date2">Date</th>
@@ -163,18 +156,18 @@
               <% for(var i=0;i<appointments.length;i++) { %>
                 <tr class="text-center align-middle">
                   <td id="date2">
-                    <%= appointments[i].Date %>
+                    <%= appointments[i].date %>
+                  </td>
+                  <td style= "max-width:25vw ; text-overflow: ellipsis;">
+                    <%= appointments[i].description %>
                   </td>
                   <td>
-                    <%= appointments[i].Description %>
+                    <%= appointments[i].start_time %>
                   </td>
                   <td>
-                    <%= appointments[i].Start_time %>
+                    <%= appointments[i].end_time %>
                   </td>
-                  <td>
-                    <%= appointments[i].End_time %>
-                  </td>
-                  <td>
+                  <td id = "action">
                     <button class="btn btn-danger btn-sm" onclick="Delete(this)"><i class="fas fa-trash"></i></button>
                   </td>
                 </tr>

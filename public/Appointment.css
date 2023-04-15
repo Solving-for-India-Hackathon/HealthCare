@@ -47,6 +47,7 @@ form{
 .col{
   margin-left: 0.8vw !important;
 }
+
 #clearappointments button{
   padding: 1vw;
   border-radius: 30px;
@@ -72,7 +73,7 @@ form{
 #date2{
   border-top-left-radius: 20px !important;
   border-bottom-left-radius: 20px !important;
-  border-style: none;
+  border-style: none !important;
   /* border: white; */
 }
 #action
