@@ -10,7 +10,6 @@ exports.login = async (req, res) => {
   } else {
     res.redirect("/dashboard")
   }
-
 };
 
 

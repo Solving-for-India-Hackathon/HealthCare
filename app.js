@@ -54,7 +54,6 @@ var Date, Description, Start_time, End_time;
 
 app.get("/appointment", async (request, response) => {
   const foundUser = request.user;
-  console.log(foundUser.appointments);
   response.render("appointment", { appointments: foundUser.appointments });
 });
 
