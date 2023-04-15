@@ -51,6 +51,7 @@
           <table class="table table-bordered table-hover table-striped" id="appointment_list">
             <thead>
               <tr>
+              <th scope="col" class="text-center align-middle" >Name</th>
                 <th scope="col" class="text-center align-middle" id="date2">Date</th>
                 <th scope="col" class="text-center align-middle">Description</th>
                 <th scope="col" class="text-center align-middle">Start time</th>
@@ -62,6 +63,14 @@
               <%if(appointments.length> 0) {%>
                 <% for(var i=0;i<appointments.length;i++) { %>
                   <tr class="text-center align-middle">
+                    <td>
+                      <%= appointments[i].user.firstName %>
+                      <%= appointments[i].user.userDetails[0] %>
+                      <%= appointments[i].user.userDetails[1] %>
+                      <%= appointments[i].user.userDetails[2] %>
+
+
+                    </td>
                     <td id="date2">
                       <%= appointments[i].date %>
                     </td>

@@ -44,8 +44,8 @@ const UserSchema = new mongoose.Schema({
       ref: "Appointment"
     },
   ],
-  userDetails: {
-    weight: {
+  userDetails: [
+    {weight: {
       type: Number,
     },
     height: {
@@ -68,13 +68,14 @@ const UserSchema = new mongoose.Schema({
     },
     BMI: {
       type: Number,
-    },
-  },
+    },}
+  ],
 });
 
 UserSchema.pre(/^find/, function(next) {
   this.populate({
     path: 'appointments',
+    select: "-user",
   });
   next();
 });

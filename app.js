@@ -54,6 +54,7 @@ var Date, Description, Start_time, End_time;
 
 app.get("/appointment", async (request, response) => {
   const foundUser = request.user;
+  console.log(foundUser);
   response.render("appointment", { appointments: foundUser.appointments });
 });
 
@@ -76,7 +77,7 @@ app.post("/appointment", async (req, res) => {
         start_time: Start_time,
         end_time: End_time,
       };
-      var appoint = await Appointment.create(req.body);
+      var appoint = await Appointment.create({...req.body , user: user._id});
       user.appointments.push(appoint._id);
       
 
@@ -136,7 +137,7 @@ app.post("/profile", async (request, response) => {
         mail,
         mobile,
       };
-      user.userDetails = d;
+      user.userDetails.push(d);
       await user.save();
       // res.status(200).redirect("/dashboard");
       response.redirect("/profile");
@@ -233,6 +234,7 @@ app.get("/disease", function (req, res) {
 
 app.get("/admin" , async (req , res) => {
   const appointments = await Appointment.find();
+  console.log(appointments);
   res.render("admin.ejs" , { appointments: appointments });
 })
 // end for disese
