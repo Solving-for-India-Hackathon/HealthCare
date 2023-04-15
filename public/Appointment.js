@@ -135,7 +135,7 @@ $("#days td.active").on("click", function () {
         $("#submit").prop('disabled', false);
     }
     if ($("#description").val() == null || $("#description").val() == '') {
-        $("#description").focus();
+        $("#description").focF();
     } else {
         $("#submit").focus();
     }

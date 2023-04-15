@@ -20,6 +20,11 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  role: {
+    type: String,
+    enum: ["user" , "admin"],
+    default: "user",
+  },
   details: [
     {
       medname: {
@@ -35,18 +40,8 @@ const UserSchema = new mongoose.Schema({
   ],
   appointments: [
     {
-      Date: {
-        type: String,
-      },
-      Description: {
-        type: String,
-      },
-      Start_time: {
-        type: String,
-      },
-      End_time: {
-        type: String,
-      },
+      type: mongoose.Schema.ObjectId,
+      ref: "Appointment"
     },
   ],
   userDetails: {
@@ -75,6 +70,13 @@ const UserSchema = new mongoose.Schema({
       type: Number,
     },
   },
+});
+
+UserSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'appointments',
+  });
+  next();
 });
 
 module.exports = mongoose.model("User", UserSchema);

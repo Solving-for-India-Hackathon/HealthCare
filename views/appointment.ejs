@@ -31,14 +31,7 @@
           <span class="title">Dashboard</span>
         </a>
       </li>
-
-      <!-- <li class="list">
-        <a href="#">
-          <span class="icon"><i class="fas fa-hospital"></i></span>
-          <span class="title">Hospitals near me</span>
-        </a>
-      </li> -->
-
+      
       <li class="list">
         <a href="/appointment">
           <span class="icon"><i class="fas fa-calendar-check"></i></span>
@@ -163,16 +156,16 @@
               <% for(var i=0;i<appointments.length;i++) { %>
                 <tr class="text-center align-middle">
                   <td id="date2">
-                    <%= appointments[i].Date %>
+                    <%= appointments[i].date %>
                   </td>
                   <td>
-                    <%= appointments[i].Description %>
+                    <%= appointments[i].description %>
                   </td>
                   <td>
-                    <%= appointments[i].Start_time %>
+                    <%= appointments[i].start_time %>
                   </td>
                   <td>
-                    <%= appointments[i].End_time %>
+                    <%= appointments[i].end_time %>
                   </td>
                   <td>
                     <button class="btn btn-danger btn-sm" onclick="Delete(this)"><i class="fas fa-trash"></i></button>
