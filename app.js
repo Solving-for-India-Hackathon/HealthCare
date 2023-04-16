@@ -76,9 +76,9 @@ app.post("/appointment", async (req, res) => {
         start_time: Start_time,
         end_time: End_time,
       };
-      var appoint = await Appointment.create({...req.body , user: user._id});
+      var appoint = await Appointment.create({ ...req.body, user: user._id });
       user.appointments.push(appoint._id);
-      
+
 
       await user.save();
       res.status(200).redirect("/appointment");
@@ -231,10 +231,11 @@ app.get("/disease", function (req, res) {
   res.render("disease.ejs");
 });
 
-app.get("/admin" , async (req , res) => {
+app.get("/admin", async (req, res) => {
   const appointments = await Appointment.find();
-  res.render("admin.ejs" , { appointments: appointments });
+  res.render("admin.ejs", { appointments: appointments });
 })
 // end for disese
+
 
 app.listen(PORT, console.log(`Server running on ${PORT}`));
