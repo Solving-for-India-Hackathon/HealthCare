@@ -6,7 +6,8 @@ const appointmentSchema = new mongoose.Schema({
     ref: "User",
   },
   date: {
-    type: String,
+    type: Date,
+    default: Date.now(),
   },
   description: {
     type: String,
@@ -19,10 +20,11 @@ const appointmentSchema = new mongoose.Schema({
   },
 });
 
-appointmentSchema.pre(/^find/, function(next) {
+appointmentSchema.pre(/^find/, function (next) {
   this.populate({
-    path: 'user',
-    select: "firstName lastName userDetails.mobile userDetails.gen -appointments"
+    path: "user",
+    select:
+      "firstName lastName userDetails.mobile userDetails.gen -appointments",
   });
   next();
 });

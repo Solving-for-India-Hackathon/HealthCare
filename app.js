@@ -6,7 +6,7 @@ const ejs = require("ejs");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const passport = require("passport");
-const { ensureAuth, ensureGuest , ensureAdmin } = require("./middleware/auth");
+const { ensureAuth, ensureGuest, ensureAdmin } = require("./middleware/auth");
 const { login } = require("./controller/login");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -50,19 +50,14 @@ app.use("/", require("./routes/auth"));
 
 const PORT = process.env.PORT || 3000;
 
-var Date, Description, Start_time, End_time;
-
 app.get("/appointment", async (request, response) => {
   const foundUser = request.user;
-  response.render("appointment", { appointments: foundUser.appointments });
+  const appointments = foundUser.appointments;
+  appointments.sort((a, b) => a.date - b.date);
+  response.render("appointment", { appointments: appointments });
 });
 
 app.post("/appointment", async (req, res) => {
-  Date = req.body.date;
-  Description = req.body.description;
-  Start_time = req.body.start_time;
-  End_time = req.body.end_time;
-
   const Founduser = req.user;
   // clg
   try {
@@ -70,15 +65,16 @@ app.post("/appointment", async (req, res) => {
     // console.log(freq)
 
     if (user) {
-      var d = {
-        date: Date,
-        description: Description,
-        start_time: Start_time,
-        end_time: End_time,
-      };
-      var appoint = await Appointment.create({...req.body , user: user._id});
+      const appointmentDateStr = req.body.date;
+      const arr = appointmentDateStr.split("/");
+      const appointDate = new Date(`${arr[2]}-${arr[1]}-${arr[0]}`);
+      console.log(appointDate);
+      var appoint = await Appointment.create({
+        ...req.body,
+        user: user._id,
+        date: appointDate,
+      });
       user.appointments.push(appoint._id);
-      
 
       await user.save();
       res.status(200).redirect("/appointment");
@@ -231,10 +227,15 @@ app.get("/disease", function (req, res) {
   res.render("disease.ejs");
 });
 
-app.get("/admin" , ensureAdmin ,  async (req , res) => {
-  const appointments = await Appointment.find();
-  res.render("admin.ejs" , { appointments: appointments });
-})
+app.get("/admin", async (req, res) => {
+  const currentDate = new Date();
+
+  const upcomingAppointments = await Appointment.find({
+    date: { $gte: currentDate },
+  }).sort("date");
+
+  res.render("admin.ejs", { appointments: upcomingAppointments });
+});
 // end for disese
 
 app.listen(PORT, console.log(`Server running on ${PORT}`));
