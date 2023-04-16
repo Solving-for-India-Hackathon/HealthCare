@@ -6,7 +6,7 @@ const ejs = require("ejs");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const passport = require("passport");
-const { ensureAuth, ensureGuest } = require("./middleware/auth");
+const { ensureAuth, ensureGuest , ensureAdmin } = require("./middleware/auth");
 const { login } = require("./controller/login");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -231,7 +231,7 @@ app.get("/disease", function (req, res) {
   res.render("disease.ejs");
 });
 
-app.get("/admin" , async (req , res) => {
+app.get("/admin" , ensureAdmin ,  async (req , res) => {
   const appointments = await Appointment.find();
   res.render("admin.ejs" , { appointments: appointments });
 })
