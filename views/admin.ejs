@@ -54,9 +54,10 @@
                     </td>
                     <td>
                       <%= appointments[i].user.userDetails[0].gen %>
+                      
                     </td>
                     <td>
-                      <%= appointments[i].date %>
+                      <%= appointments[i].date.toString().slice(0,15) %>
                     </td>
                     <td style = "max-width:30vw">
                       <%= appointments[i].description %>

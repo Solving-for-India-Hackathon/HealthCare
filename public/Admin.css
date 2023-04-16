@@ -15,7 +15,8 @@
 
 .wrapper{
     display: block;
-    height: 70%;
+    max-height: 70%;
+    width: 75vw;
     position:absolute;
     left: 50%;
     top: 50%;

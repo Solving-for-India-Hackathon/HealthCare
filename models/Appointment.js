@@ -24,7 +24,7 @@ appointmentSchema.pre(/^find/, function (next) {
   this.populate({
     path: "user",
     select:
-      "firstName lastName userDetails.mobile userDetails.gen -appointments",
+      "firstName lastName userDetails.mobile userDetails.gen _id -appointments",
   });
   next();
 });
