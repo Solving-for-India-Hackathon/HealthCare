@@ -13,4 +13,11 @@ module.exports = {
       return next();
     }
   },
+  ensureAdmin: function (req , res) {
+    if (req.user.role === "admin") {
+      res.redirect("/admin");
+    } else {
+      res.redirect("/dashboard");
+    }
+  }
 };
