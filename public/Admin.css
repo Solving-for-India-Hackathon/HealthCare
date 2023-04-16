@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 .adminContainer{
     width: 100vw;
     height: 100vh;
@@ -19,6 +21,17 @@
     top: 50%;
     transform: translate(-50% , -50%);
     overflow-y: scroll;
+}
+
+.heading{
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%);
+    font-family: 'Montserrat', sans-serif;
+}
+.heading h1{
+    font-size: 55px;
 }
 
 #appointment_list{

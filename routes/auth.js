@@ -21,7 +21,11 @@ router.get(
 // @route   GET /auth/google/callback
 router.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
-    res.redirect("/dashboard");
+    if(req.user.role=== "admin") {
+      res.redirect("/admin");
+    } else {
+      req.redirect("/dashboard");
+    }
   }
 );
 

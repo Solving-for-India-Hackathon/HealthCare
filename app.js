@@ -54,7 +54,6 @@ var Date, Description, Start_time, End_time;
 
 app.get("/appointment", async (request, response) => {
   const foundUser = request.user;
-  console.log(foundUser);
   response.render("appointment", { appointments: foundUser.appointments });
 });
 
@@ -111,7 +110,7 @@ app.post("/profile", async (request, response) => {
   BMI = (weight * 100 * 100) / (height * height);
   BMI = BMI.toFixed(1);
 
-  console.log("profile", mobile);
+  // console.log("profile", mobile);
   const Founduser = request.user;
   try {
     const user = await User.findById(Founduser.id);
@@ -234,7 +233,6 @@ app.get("/disease", function (req, res) {
 
 app.get("/admin" , async (req , res) => {
   const appointments = await Appointment.find();
-  console.log(appointments);
   res.render("admin.ejs" , { appointments: appointments });
 })
 // end for disese
