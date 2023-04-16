@@ -65,13 +65,15 @@ app.post("/appointment", async (req, res) => {
     // console.log(freq)
 
     if (user) {
-      var d = {
-        date: Date,
-        description: Description,
-        start_time: Start_time,
-        end_time: End_time,
-      };
-      var appoint = await Appointment.create({ ...req.body, user: user._id });
+      const appointmentDateStr = req.body.date;
+      const arr = appointmentDateStr.split("/");
+      const appointDate = new Date(`${arr[2]}-${arr[1]}-${arr[0]}`);
+      console.log(appointDate);
+      var appoint = await Appointment.create({
+        ...req.body,
+        user: user._id,
+        date: appointDate,
+      });
       user.appointments.push(appoint._id);
 
       await user.save();
@@ -235,6 +237,5 @@ app.get("/admin", async (req, res) => {
   res.render("admin.ejs", { appointments: upcomingAppointments });
 });
 // end for disese
-
 
 app.listen(PORT, console.log(`Server running on ${PORT}`));
